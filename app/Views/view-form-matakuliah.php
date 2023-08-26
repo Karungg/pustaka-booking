@@ -6,6 +6,9 @@
 
 <body>
     <center>
+
+        <?php $validation = \Config\Services::validation(); ?>
+
         <form action="<?= base_url('pertemuan2/matakuliah/cetak'); ?>" method="post">
             <table>
                 <tr>
@@ -22,15 +25,27 @@
                     <th>Kode MTK</th>
                     <th>:</th>
                     <td>
-                        <input type="text" name="kode" id="kode">
+                        <input type="text" name="kode" id="kode" value="<?= old('kode') ?>">
                     </td>
+                    <?php
+                    if ($validation->hasError('kode')) : ?>
+                        <td>
+                            <p><?= $validation->getError('kode') ?></p>
+                        </td>
+                    <?php endif; ?>
                 </tr>
                 <tr>
                     <th>Nama MTK</th>
                     <td>:</td>
                     <td>
-                        <input type="text" name="nama" id="nama">
+                        <input type="text" name="nama" id="nama" value="<?= old('nama') ?>">
                     </td>
+                    <?php
+                    if ($validation->hasError('nama')) : ?>
+                        <td>
+                            <p><?= $validation->getError('nama') ?></p>
+                        </td>
+                    <?php endif; ?>
                 </tr>
                 <tr>
                     <th>SKS</th>
