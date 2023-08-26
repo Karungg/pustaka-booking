@@ -1,8 +1,10 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
+use App\Controllers\Latihan1;
 use App\Controllers\Contoh1;
 use App\Controllers\MataKuliah;
+use App\Controllers\Pertemuan6\Sepatu;
 use App\Controllers\Web;
 
 /**
@@ -25,3 +27,7 @@ $routes->get('/', [Web::class, 'index']);
 
 // Menampilkan halaman about
 $routes->get('/about', [Web::class, 'about']);
+
+// Tugas pertemuan 7 sepatu
+$routes->get('/pertemuan6', [Sepatu::class, 'index']);
+$routes->post('/pertemuan6/checkout', [Sepatu::class, 'checkout']);
