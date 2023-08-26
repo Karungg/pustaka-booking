@@ -27,12 +27,16 @@
                     <td>
                         <input type="text" name="kode" id="kode" value="<?= old('kode') ?>">
                     </td>
-                    <?php
-                    if ($validation->hasError('kode')) : ?>
-                        <td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <td>
+                        <?php
+                        if ($validation->hasError('kode')) : ?>
                             <p><?= $validation->getError('kode') ?></p>
-                        </td>
-                    <?php endif; ?>
+                        <?php endif; ?>
+                    </td>
                 </tr>
                 <tr>
                     <th>Nama MTK</th>
@@ -40,12 +44,16 @@
                     <td>
                         <input type="text" name="nama" id="nama" value="<?= old('nama') ?>">
                     </td>
-                    <?php
-                    if ($validation->hasError('nama')) : ?>
-                        <td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <td>
+                        <?php
+                        if ($validation->hasError('nama')) : ?>
                             <p><?= $validation->getError('nama') ?></p>
-                        </td>
-                    <?php endif; ?>
+                        <?php endif; ?>
+                    </td>
                 </tr>
                 <tr>
                     <th>SKS</th>
