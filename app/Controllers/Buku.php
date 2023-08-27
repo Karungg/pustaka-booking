@@ -13,12 +13,7 @@ class Buku extends ResourceController
      */
     public function index()
     {
-        return view('admin/buku');
-    }
-
-    public function kategori()
-    {
-        return view('admin/kategori');
+        return view('admin/buku/index');
     }
 
     /**

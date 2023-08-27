@@ -10,6 +10,7 @@ use App\Controllers\Pertemuan6\Sepatu;
 use App\Controllers\Web;
 use App\Models\Buku;
 use App\Controllers\Buku as ControllerBuku;
+use App\Controllers\Kategori;
 
 /**
  * @var RouteCollection $routes
@@ -42,6 +43,6 @@ $routes->get('/login', [Autentifikasi::class, 'index']);
 $routes->group('/admin', static function ($routes) {
     $routes->get('', [Admin::class, 'index']);
     $routes->get('member', [Admin::class, 'member']);
-    $routes->get('buku', [ControllerBuku::class, 'index']);
-    $routes->get('kategori-buku', [ControllerBuku::class, 'kategori']);
+    $routes->resource('buku', [ControllerBuku::class, 'index']);
+    $routes->resource('kategori', [Kategori::class, 'index']);
 });

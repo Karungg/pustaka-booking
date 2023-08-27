@@ -13,6 +13,6 @@ class Admin extends BaseController
 
     public function member()
     {
-        return view('admin/member');
+        return view('admin/member/index');
     }
 }
