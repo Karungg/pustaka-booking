@@ -37,9 +37,7 @@ class Matakuliah extends BaseController
             return view('view-form-matakuliah');
         }
 
-        $data['kode'] = $request->getPost('kode');
-        $data['nama'] = $request->getPost('nama');
-        $data['sks'] = $request->getPost('sks');
+        $data = $request->getPost();
 
         return view('view-data-matakuliah', $data);
     }

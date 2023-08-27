@@ -1,11 +1,15 @@
 <?php
 
+use App\Controllers\Admin;
+use App\Controllers\Autentifikasi;
 use CodeIgniter\Router\RouteCollection;
 use App\Controllers\Latihan1;
 use App\Controllers\Contoh1;
 use App\Controllers\MataKuliah;
 use App\Controllers\Pertemuan6\Sepatu;
 use App\Controllers\Web;
+use App\Models\Buku;
+use App\Controllers\Buku as ControllerBuku;
 
 /**
  * @var RouteCollection $routes
@@ -21,13 +25,23 @@ $routes->get('/pertemuan2/(:num)/(:num)', [Latihan1::class, 'penjumlahan']);
 $routes->get('/pertemuan2/matakuliah', [Matakuliah::class, 'index']);
 $routes->post('/pertemuan2/matakuliah/cetak', [Matakuliah::class, 'cetak']);
 
-
 // Menampilkan halaman utama rental buku
 $routes->get('/', [Web::class, 'index']);
 
 // Menampilkan halaman about
 $routes->get('/about', [Web::class, 'about']);
 
-// Tugas pertemuan 7 sepatu
+// Tugas pertemuan 6 sepatu
 $routes->get('/pertemuan6', [Sepatu::class, 'index']);
 $routes->post('/pertemuan6/checkout', [Sepatu::class, 'checkout']);
+
+// Route login user
+$routes->get('/login', [Autentifikasi::class, 'index']);
+
+// Grouping routes admin
+$routes->group('/admin', static function ($routes) {
+    $routes->get('', [Admin::class, 'index']);
+    $routes->get('member', [Admin::class, 'member']);
+    $routes->get('buku', [ControllerBuku::class, 'index']);
+    $routes->get('kategori-buku', [ControllerBuku::class, 'kategori']);
+});
