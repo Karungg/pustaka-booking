@@ -20,7 +20,9 @@
                         <label for="nama_kategori" class="form-label">Nama Kategori</label>
                         <input type="text" class="form-control" id="nama_kategori" name="nama_kategori" value="<?= $data->nama_kategori ?>">
                     </div>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <div class="d-flex mb-3 justify-content-end">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
                 </form>
             </div>
         </div>

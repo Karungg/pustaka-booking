@@ -27,6 +27,10 @@ class CreateTableBuku extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '64',
             ],
+            'penerbit' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '64',
+            ],
             'tahun_terbit' => [
                 'type'       => 'YEAR',
                 'constraint' => '4',

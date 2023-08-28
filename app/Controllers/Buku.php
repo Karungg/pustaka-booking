@@ -2,10 +2,18 @@
 
 namespace App\Controllers;
 
+use App\Models\Buku as ModelsBuku;
 use CodeIgniter\RESTful\ResourceController;
 
 class Buku extends ResourceController
 {
+    private $buku;
+    protected $helpers = ['form'];
+    // Inisiasi model dalam function constructor
+    public function __construct()
+    {
+        $this->buku = new ModelsBuku();
+    }
     /**
      * Return an array of resource objects, themselves in array format
      *
@@ -13,7 +21,11 @@ class Buku extends ResourceController
      */
     public function index()
     {
-        return view('admin/buku/index');
+        $data = $this->buku->findAll();
+
+        return view('admin/buku/index', [
+            'data'  => $data
+        ]);
     }
 
     /**
@@ -33,7 +45,7 @@ class Buku extends ResourceController
      */
     public function new()
     {
-        //
+        return view('admin/buku/add');
     }
 
     /**
@@ -43,7 +55,38 @@ class Buku extends ResourceController
      */
     public function create()
     {
-        //
+        if (!$this->validate([
+            'judul' => 'required|min_length[3]',
+            'pengarang' => 'required|min_length[3]',
+            'penerbit' => 'required|min_length[3]',
+            'isbn' => 'required|min_length[3]',
+            'stok' => 'required|min_length[3]',
+            'image' => 'uploaded[image]|mime_in[image,image/jpg,image/jpeg,image/png]|max_size[image,4096]'
+        ])) {
+            return redirect()->to(base_url('admin/buku'))->withInput()->with('error', 'Buku gagal ditambahkan');
+        }
+
+        $upload = $this->request->getFile('image');
+        $upload->move(WRITEPATH . '../public/assets/images/');
+
+        $data = array(
+            'judul_buku'  => $this->request->getPost('judul'),
+            'id_kategori'  => '1',
+            'pengarang' => $this->request->getPost('pengarang'),
+            'penerbit' => $this->request->getPost('penerbit'),
+            'tahun_terbit' => $this->request->getPost('tahun'),
+            'isbn' => $this->request->getPost('isbn'),
+            'stok' => $this->request->getPost('stok'),
+            'dipinjam' => '1',
+            'dipinjam' => '1',
+            'image' => $upload->getName('image')
+        );
+
+        $this->buku->insert($data);
+
+        if ($this->buku->affectedRows() > 0) {
+            return redirect()->to(base_url('admin/buku'))->withInput()->with('success', 'Buku berhasil ditambahkan');
+        }
     }
 
     /**
@@ -53,7 +96,11 @@ class Buku extends ResourceController
      */
     public function edit($id = null)
     {
-        //
+        $data = $this->buku->bukuWhere($id)->getRow();
+
+        return view('admin/buku/update', [
+            'data'  => $data
+        ]);
     }
 
     /**
@@ -63,7 +110,46 @@ class Buku extends ResourceController
      */
     public function update($id = null)
     {
-        //
+        $request = \Config\Services::request();
+
+        if (!$this->validate([
+            'judul' => 'required|min_length[3]',
+            'pengarang' => 'required|min_length[3]',
+            'penerbit' => 'required|min_length[3]',
+            'isbn' => 'required|min_length[3]',
+            'stok' => 'required|min_length[3]',
+            'image' => 'uploaded[image]|mime_in[image,image/jpg,image/jpeg,image/png]|max_size[image,4096]'
+        ])) {
+            return redirect()->to(base_url('admin/buku'))->withInput()->with('error', 'Buku gagal diupdate');
+        }
+
+        $dataold = $this->buku->bukuWhere($id)->getRow();
+        $gambar = $dataold->image;
+        $path = '../public/assets/images/';
+        @unlink($path . $gambar);
+        $upload = $this->request->getFile('image');
+        $upload->move(WRITEPATH . '../public/assets/images/');
+
+        $data = array(
+            'judul_buku'  => $this->request->getPost('judul'),
+            'id_kategori'  => '1',
+            'pengarang' => $this->request->getPost('pengarang'),
+            'penerbit' => $this->request->getPost('penerbit'),
+            'tahun_terbit' => $this->request->getPost('tahun'),
+            'isbn' => $this->request->getPost('isbn'),
+            'stok' => $this->request->getPost('stok'),
+            'dipinjam' => '1',
+            'dipinjam' => '1',
+            'image' => $upload->getName('image')
+        );
+
+        $this->buku->where('id', $id)->set($data)->update();
+
+        if ($this->buku->affectedRows() > 0) {
+            return redirect()->to(base_url('admin/buku'))->withInput()->with('success', 'Buku berhasil diupdate');
+        } else {
+            return redirect()->to(base_url('admin/buku'))->withInput()->with('success', 'Buku berhasil diupdate');
+        }
     }
 
     /**
@@ -73,6 +159,16 @@ class Buku extends ResourceController
      */
     public function delete($id = null)
     {
-        //
+        $data = $this->buku->bukuWhere($id)->getRow();
+        $this->buku->hapusBuku($id);
+        $image = $data->image;
+
+        $path = '../public/assets/images/';
+
+        @unlink($path . $image);
+
+        if ($this->buku->affectedRows() > 0) {
+            return redirect()->to(base_url('admin/buku'))->withInput()->with('success', 'buku berhasil dihapus');
+        }
     }
 }

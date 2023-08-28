@@ -45,3 +45,7 @@ $routes->group('/admin', static function ($routes) {
     $routes->resource('buku', [ControllerBuku::class, 'index']);
     $routes->resource('kategori', [Kategori::class, 'index']);
 });
+
+$routes->get('/test', function () {
+    return view('test');
+});

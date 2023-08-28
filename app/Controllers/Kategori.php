@@ -8,7 +8,6 @@ use App\Models\ModelKategori;
 class Kategori extends ResourceController
 {
     private $kategori;
-    private $db;
     // Inisiasi model dalam function constructor
     public function __construct()
     {

@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class Buku extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'bukus';
+    protected $table            = 'buku';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
@@ -17,6 +17,7 @@ class Buku extends Model
         'judul_buku',
         'id_kategori',
         'pengarang',
+        'penerbit',
         'tahun_terbit',
         'isbn',
         'stok',
@@ -55,25 +56,28 @@ class Buku extends Model
     //     return $this->db->get('buku');
     // }
 
-    // public function bukuWhere($where)
-    // {
-    //     return $this->db->get_where('buku', $where);
-    // }
+    public function bukuWhere($id)
+    {
+        $query = $this->getWhere(['id' => $id]);
+        return $query;
+    }
 
     // public function simpanBuku($data = null)
     // {
     //     $this->db->insert('buku', $data);
     // }
 
-    // public function updateBuku($data = null, $where = null)
-    // {
-    //     $this->db->update('buku', $data, $where);
-    // }
+    public function updateBuku($id, $data)
+    {
+        $query = $this->db->table($this->table)->update($data, array('id' => $id));
+        return $query;
+    }
 
-    // public function hapusBuku($where = null)
-    // {
-    //     $this->db->delete('buku', $where);
-    // }
+    public function hapusBuku($id = null)
+    {
+        $query = $this->db->table($this->table)->delete(array('id' => $id));
+        return $query;
+    }
 
     // public function total($field, $where)
     // {
