@@ -8,7 +8,6 @@ use App\Controllers\Contoh1;
 use App\Controllers\MataKuliah;
 use App\Controllers\Pertemuan6\Sepatu;
 use App\Controllers\Web;
-use App\Models\Buku;
 use App\Controllers\Buku as ControllerBuku;
 use App\Controllers\Kategori;
 
