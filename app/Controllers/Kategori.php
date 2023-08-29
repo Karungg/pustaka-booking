@@ -63,7 +63,7 @@ class Kategori extends ResourceController
 
         $data = $request->getPost();
 
-        $this->kategori->insert($data);
+        $this->kategori->simpanKategori($data);
 
         if ($this->kategori->affectedRows() > 0) {
             return redirect()->to(base_url('admin/kategori'))->withInput()->with('success', 'Kategori berhasil ditambahkan');
@@ -120,7 +120,7 @@ class Kategori extends ResourceController
      */
     public function delete($id = null)
     {
-        $this->kategori->where('id_kategori', $id)->delete();
+        $this->kategori->hapusKategori($id);
 
         if ($this->kategori->affectedRows() > 0) {
             return redirect()->to(base_url('admin/kategori'))->withInput()->with('success', 'Kategori berhasil dihapus');

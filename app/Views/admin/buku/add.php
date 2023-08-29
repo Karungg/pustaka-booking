@@ -18,19 +18,27 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-body">
+                <?php if (session()->getFlashdata('errors')) : ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <?= session()->getFlashdata('errors') ?>
+                        <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                <?php endif ?>
                 <?= form_open_multipart('admin/buku') ?>
                 <?= csrf_field() ?>
                 <div class="mb-3">
                     <label for="judul" class="form-label">Judul</label>
-                    <input type="text" class="form-control" id="judul" name="judul">
+                    <input type="text" class="form-control" id="judul" name="judul" value="<?= old('judul') ?>">
                 </div>
                 <div class="mb-3">
                     <label for="pengarang" class="form-label">Pengarang</label>
-                    <input type="text" class="form-control" id="pengarang" name="pengarang">
+                    <input type="text" class="form-control" id="pengarang" name="pengarang" value="<?= old('pengarang') ?>">
                 </div>
                 <div class="mb-3">
                     <label for="penerbit" class="form-label">Penerbit</label>
-                    <input type="text" class="form-control" id="penerbit" name="penerbit">
+                    <input type="text" class="form-control" id="penerbit" name="penerbit" value="<?= old('penerbit') ?>">
                 </div>
                 <div class="mb-3">
                     <label for="tahun" class="form-label">tahun</label>
@@ -44,11 +52,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="isbn" class="form-label">ISBN</label>
-                    <input type="number" class="form-control" id="isbn" name="isbn">
+                    <input type="number" class="form-control" id="isbn" name="isbn" value="<?= old('isbn') ?>">
                 </div>
                 <div class="mb-3">
                     <label for="stok" class="form-label">Stok</label>
-                    <input type="number" class="form-control" id="stok" name="stok">
+                    <input type="number" class="form-control" id="stok" name="stok" value="<?= old('stok') ?>">
                 </div>
                 <div class="mb-3">
                     <label for="image" class="form-label">Gambar</label>

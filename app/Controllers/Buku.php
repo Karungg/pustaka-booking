@@ -60,10 +60,10 @@ class Buku extends ResourceController
             'pengarang' => 'required|min_length[3]',
             'penerbit' => 'required|min_length[3]',
             'isbn' => 'required|min_length[3]',
-            'stok' => 'required|min_length[3]',
+            'stok' => 'required|min_length[1]',
             'image' => 'uploaded[image]|mime_in[image,image/jpg,image/jpeg,image/png]|max_size[image,4096]'
         ])) {
-            return redirect()->to(base_url('admin/buku'))->withInput()->with('error', 'Buku gagal ditambahkan');
+            return redirect()->to(base_url('admin/buku/new'))->withInput()->with('errors', 'Isi data dengan benar');
         }
 
         $upload = $this->request->getFile('image');
@@ -82,7 +82,7 @@ class Buku extends ResourceController
             'image' => $upload->getName('image')
         );
 
-        $this->buku->insert($data);
+        $this->buku->simpanBuku($data);
 
         if ($this->buku->affectedRows() > 0) {
             return redirect()->to(base_url('admin/buku'))->withInput()->with('success', 'Buku berhasil ditambahkan');
@@ -110,14 +110,13 @@ class Buku extends ResourceController
      */
     public function update($id = null)
     {
-        $request = \Config\Services::request();
 
         if (!$this->validate([
             'judul' => 'required|min_length[3]',
             'pengarang' => 'required|min_length[3]',
             'penerbit' => 'required|min_length[3]',
             'isbn' => 'required|min_length[3]',
-            'stok' => 'required|min_length[3]',
+            'stok' => 'required|min_length[1]',
             'image' => 'uploaded[image]|mime_in[image,image/jpg,image/jpeg,image/png]|max_size[image,4096]'
         ])) {
             return redirect()->to(base_url('admin/buku'))->withInput()->with('error', 'Buku gagal diupdate');
